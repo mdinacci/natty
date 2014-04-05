@@ -82,8 +82,11 @@ public class WalkerState {
     assert(direction.equals(DIR_LEFT) || direction.equals(DIR_RIGHT));
     assert(seekType.equals(SEEK_BY_DAY) || seekType.equals(SEEK_BY_WEEK));
     assert(dayOfWeekInt >= 1 && dayOfWeekInt <= 7);
-    
+
     markDateInvocation();
+
+	if (_calendar.get(Calendar.DAY_OF_WEEK) == dayOfWeekInt && seekAmountInt == 0 && seekType.equals(SEEK_BY_DAY))
+		return;
     
     int sign = direction.equals(DIR_RIGHT) ? 1 : -1;
     if(seekType.equals(SEEK_BY_WEEK)) {
@@ -94,11 +97,11 @@ public class WalkerState {
     }
     
     else if(seekType.equals(SEEK_BY_DAY)) {
-      // find the closest day
-      do {
-        _calendar.roll(Calendar.DAY_OF_YEAR, sign);
-      } while(_calendar.get(Calendar.DAY_OF_WEEK) != dayOfWeekInt);
-      
+	  // find the closest day
+	  do {
+		_calendar.roll(Calendar.DAY_OF_YEAR, sign);
+	  } while(_calendar.get(Calendar.DAY_OF_WEEK) != dayOfWeekInt);
+
       // now add/subtract any additional days
       if(seekAmountInt > 0) {
         _calendar.add(Calendar.WEEK_OF_YEAR, (seekAmountInt - 1) * sign);

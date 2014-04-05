@@ -1,5 +1,9 @@
 package com.joestelmach.natty;
 
+import junit.framework.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,11 +15,6 @@ import java.util.TimeZone;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import junit.framework.Assert;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  * Runs the parser through the various date formats 
@@ -93,6 +92,7 @@ public class DateTest extends AbstractTest {
     validateDate("six mondays ago", 1, 17, 2011);
     validateDate("last monday", 2, 21, 2011);
     validateDate("last mon", 2, 21, 2011);
+    validateDate("this mon", 2, 28, 2011);
     validateDate("this past mon", 2, 21, 2011);
     validateDate("this coming mon", 3, 7, 2011);
     validateDate("this upcoming mon", 3, 7, 2011);
